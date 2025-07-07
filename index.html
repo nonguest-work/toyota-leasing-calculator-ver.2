@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toyota Leasing Calculator - คำนวณโปรแกรมเช่าซื้อรถโตโยต้า</title>
+    <title>Toyota Leasing Calculator - คำนวณโปรแกรมเช่าซื้อรถโตโยต้า กรกฎาคม 2568</title>
     <style>
         * {
             margin: 0;
@@ -119,6 +119,11 @@
             transform: scale(1.2);
         }
 
+        .checkbox-item.new-feature {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-left: 4px solid #ff9800;
+        }
+
         .calculate-btn {
             width: 100%;
             padding: 15px;
@@ -206,11 +211,20 @@
             border-left: 5px solid #4caf50;
         }
 
+        .promo-card.new {
+            background: linear-gradient(135deg, #fff3e0, #ffe0b2);
+            border-left-color: #ff9800;
+        }
+
         .promo-title {
             font-weight: 700;
             color: #2e7d32;
             margin-bottom: 10px;
             font-size: 1.1rem;
+        }
+
+        .promo-card.new .promo-title {
+            color: #e65100;
         }
 
         .promo-details {
@@ -234,6 +248,31 @@
             border-radius: 8px;
             border-left: 5px solid #4caf50;
             margin-top: 20px;
+        }
+
+        .new-badge {
+            background: #ff9800;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .discount-section {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #4caf50;
+        }
+
+        .discount-title {
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
         }
 
         @media (max-width: 768px) {
@@ -271,7 +310,7 @@
 
         .tooltip .tooltiptext {
             visibility: hidden;
-            width: 250px;
+            width: 300px;
             background-color: #555;
             color: #fff;
             text-align: center;
@@ -281,7 +320,7 @@
             z-index: 1;
             bottom: 125%;
             left: 50%;
-            margin-left: -125px;
+            margin-left: -150px;
             font-size: 14px;
             line-height: 1.3;
         }
@@ -296,13 +335,23 @@
             margin-top: 5px;
         }
 
-        .budget-impact {
-            font-size: 1.1rem;
-            font-weight: 700;
-            text-align: center;
-            padding: 15px;
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .input-group input {
+            flex: 1;
+        }
+
+        .unit-label {
+            background: #f0f0f0;
+            padding: 12px 15px;
             border-radius: 8px;
-            margin: 15px 0;
+            font-weight: 600;
+            color: #666;
+            border: 2px solid #e0e0e0;
         }
     </style>
 </head>
@@ -310,7 +359,7 @@
     <div class="container">
         <div class="header">
             <h1>🚗 Toyota Leasing Calculator</h1>
-            <p>คำนวณโปรแกรมเช่าซื้อรถโตโยต้า มิถุนายน 2568</p>
+            <p>คำนวณโปรแกรมเช่าซื้อรถโตโยต้า กรกฎาคม 2568 <span class="new-badge">NEW</span></p>
         </div>
 
         <div class="main-content">
@@ -331,7 +380,6 @@
                         <option value="Fortuner">Toyota Fortuner</option>
                         <option value="Innova">Toyota Innova</option>
                         <option value="Revo_BCab">Toyota Revo Standard (B-Cab)</option>
-                        <option value="Revo_CCab">Toyota Revo Smartcab (C-Cab)</option>
                         <option value="Revo_DCab">Toyota Revo Doublecab (D-Cab)</option>
                         <option value="Hilux_Champ">Toyota Hilux Champ</option>
                     </select>
@@ -389,6 +437,14 @@
                             <input type="checkbox" id="promo_veloz" value="Veloz_Special">
                             <label for="promo_veloz">Veloz Special (ต่ำสุด 0%)</label>
                         </div>
+                        <div class="checkbox-item new-feature">
+                            <input type="checkbox" id="promo_corolla_cross" value="Corolla_Cross_2567">
+                            <label for="promo_corolla_cross">Corolla Cross 2567 (ต่ำสุด 1.39%) <span class="new-badge">NEW</span></label>
+                        </div>
+                        <div class="checkbox-item new-feature">
+                            <input type="checkbox" id="promo_yaris_cross" value="Yaris_Cross_Special">
+                            <label for="promo_yaris_cross">Yaris Cross Special (ต่ำสุด 1.75%) <span class="new-badge">NEW</span></label>
+                        </div>
                     </div>
                 </div>
 
@@ -422,6 +478,21 @@
                     </div>
                 </div>
 
+                <div class="discount-section">
+                    <div class="discount-title">💰 ส่วนลดดอกเบี้ยเพิ่มเติม</div>
+                    <div class="form-group">
+                        <label for="additionalDiscount">ส่วนลดดอกเบี้ยพิเศษ (%):</label>
+                        <div class="input-group">
+                            <input type="number" id="additionalDiscount" placeholder="เช่น 0.50" min="0" max="5" step="0.01">
+                            <span class="unit-label">%</span>
+                        </div>
+                        <div class="tooltip">
+                            <span class="info-icon">?</span>
+                            <span class="tooltiptext">ระบุส่วนลดดอกเบี้ยเพิ่มเติมที่ได้รับจากแคมเปญพิเศษ เช่น ลูกค้าเก่า โปรแกรม RO Scheme รถไฮบริด ฯลฯ ระบบจะนำมารวมกับส่วนลดจากโปรแกรมลูกค้าที่เลือก</span>
+                        </div>
+                    </div>
+                </div>
+
                 <button class="calculate-btn" onclick="calculateFinancing()">🧮 คำนวณ</button>
             </div>
 
@@ -438,7 +509,7 @@
         </div>
 
         <div class="promotions-section">
-            <h2>🎉 โปรโมชั่นและแคมเปญพิเศษ</h2>
+            <h2>🎉 โปรโมชั่นและแคมเปญพิเศษ กรกฎาคม 2568</h2>
             <div id="promotions-list">
                 <!-- โปรโมชั่นจะถูกโหลดด้วย JavaScript -->
             </div>
@@ -446,12 +517,12 @@
     </div>
 
     <script>
-        // ข้อมูลระบบ Toyota Leasing
+        // ข้อมูลระบบ Toyota Leasing - อัปเดตเดือนกรกฎาคม 2568
         const ToyotaLeasingSystem = {
             info: {
-                title: "โปรแกรมสนับสนุนการขายประจำเดือนมิถุนายน 2568",
+                title: "โปรแกรมสนับสนุนการขายประจำเดือนกรกฎาคม 2568",
                 company: "บริษัท โตโยต้าลีสซิ่ง (ประเทศไทย) จำกัด",
-                period: "1-30 มิถุนายน 2568"
+                period: "1-31 กรกฎาคม 2568"
             },
             
             standardRates: {
@@ -525,13 +596,6 @@
                     "20%": { "48": 2.85, "60": 3.49, "72": 3.95, "84": 4.65, "96": 5.15 },
                     "25%": { "48": 2.39, "60": 3.39, "72": 3.69, "84": 4.49, "96": 4.99 }
                 },
-                "Revo_CCab": {
-                    "5%": { "48": 4.90, "60": 5.25, "72": 5.45, "84": 5.55 },
-                    "10%": { "48": 4.10, "60": 4.35, "72": 4.90, "84": 5.40 },
-                    "15%": { "48": 3.55, "60": 3.85, "72": 4.30, "84": 5.00, "96": 5.50 },
-                    "20%": { "48": 2.80, "60": 3.40, "72": 3.80, "84": 4.50, "96": 5.00 },
-                    "25%": { "48": 2.39, "60": 3.30, "72": 3.60, "84": 4.30, "96": 4.80 }
-                },
                 "Revo_DCab": {
                     "5%": { "48": 4.80, "60": 5.15, "72": 5.45, "84": 5.55 },
                     "10%": { "48": 4.00, "60": 4.30, "72": 4.75, "84": 5.45 },
@@ -552,24 +616,24 @@
                 "Ativ_Yaris_2566": {
                     description: "ดอกเบี้ยพิเศษเพื่อการโฆษณาประชาสัมพันธ์ สำหรับรถเอทีฟใหม่ และยาริส ปี 2566",
                     models: ["Ativ", "Yaris"],
-                    period: "1-30 มิ.ย. 2568",
-                    deliveryDeadline: "31 ก.ค. 2568",
+                    period: "1-31 ก.ค. 2568",
+                    deliveryDeadline: "31 ส.ค. 2568",
                     dealerSubsidy: 9000,
                     lowestRate: 0,
                     conditions: "อัตราดอกเบี้ยต่ำสุด 0% ที่ดาวน์ 25% ระยะเวลา 48 เดือน",
                     rates: {
                         "5%": { "48": 2.60, "60": 3.20, "72": 3.80, "84": 4.39 },
                         "10%": { "48": 2.15, "60": 2.70, "72": 3.25, "84": 4.00 },
-                        "15%": { "48": 1.30, "60": 1.95, "72": 2.60, "84": 3.20, "96": 3.75 },
-                        "20%": { "48": 0.79, "60": 1.45, "72": 1.85, "84": 2.50, "96": 3.29 },
-                        "25%": { "48": 0, "60": 1.25, "72": 1.69, "84": 2.30, "96": 3.05 }
+                        "15%": { "48": 1.30, "60": 1.95, "72": 2.60, "84": 2.95, "96": 3.75 },
+                        "20%": { "48": 0.79, "60": 1.45, "72": 1.85, "84": 2.39, "96": 3.29 },
+                        "25%": { "48": 0, "60": 1.25, "72": 1.69, "84": 2.15, "96": 3.05 }
                     }
                 },
                 "Fortuner_2567": {
                     description: "ดอกเบี้ยพิเศษเพื่อการโฆษณาประชาสัมพันธ์ สำหรับรถฟอร์จูนเนอร์ ปี 2567",
                     models: ["Fortuner"],
-                    period: "1-30 มิ.ย. 2568",
-                    deliveryDeadline: "31 ก.ค. 2568",
+                    period: "1-31 ก.ค. 2568",
+                    deliveryDeadline: "31 ส.ค. 2568",
                     dealerSubsidy: { "Leader": 17000, "Legender_GR_Sport": 37000 },
                     lowestRate: 0.89,
                     conditions: "อัตราดอกเบี้ยต่ำสุด 0.89% ที่ดาวน์ 25% ระยะเวลา 48 เดือน",
@@ -578,14 +642,14 @@
                         "10%": { "48": 2.50, "60": 3.00, "72": 3.49, "84": 4.19 },
                         "15%": { "48": 1.70, "60": 2.30, "72": 2.89, "84": 3.39, "96": 3.95 },
                         "20%": { "48": 1.35, "60": 1.85, "72": 2.25, "84": 2.79, "96": 3.50 },
-                        "25%": { "48": 0.89, "60": 1.65, "72": 2.05, "84": 2.65, "96": 3.25 }
+                        "25%": { "48": 0.89, "60": 1.65, "72": 2.05, "84": 2.55, "96": 3.25 }
                     }
                 },
                 "Veloz_Special": {
                     description: "ดอกเบี้ยพิเศษเพื่อการโฆษณาประชาสัมพันธ์ สำหรับรถเวลอซ",
                     models: ["Veloz"],
-                    period: "1 มี.ค. - 30 มิ.ย. 2568",
-                    deliveryDeadline: "31 ก.ค. 2568",
+                    period: "1 มี.ค. - 31 ก.ค. 2568",
+                    deliveryDeadline: "31 ส.ค. 2568",
                     dealerSubsidy: 9000,
                     lowestRate: 0,
                     conditions: "อัตราดอกเบี้ยต่ำสุด 0% ที่ดาวน์ 25% ระยะเวลา 60 เดือน",
@@ -595,6 +659,38 @@
                         "15%": { "48": 0.90, "60": 1.65, "72": 2.30, "84": 2.90 },
                         "20%": { "48": 0.39, "60": 1.15, "72": 1.65, "84": 2.30 },
                         "25%": { "48": 0, "60": 0, "72": 1.45, "84": 2.09 }
+                    }
+                },
+                "Corolla_Cross_2567": {
+                    description: "ดอกเบี้ยพิเศษเพื่อการโฆษณาประชาสัมพันธ์ สำหรับรถโคโรลล่า ครอส รุ่นปรับปรุง ปี 2567",
+                    models: ["Corolla_Cross"],
+                    period: "1 มี.ค. - 31 ก.ค. 2568",
+                    deliveryDeadline: "31 ส.ค. 2568",
+                    dealerSubsidy: 4000,
+                    lowestRate: 1.39,
+                    conditions: "อัตราดอกเบี้ยต่ำสุด 1.39% ที่ดาวน์ 25% ระยะเวลา 48 เดือน",
+                    rates: {
+                        "5%": { "48": 3.40, "60": 3.90, "72": 4.35, "84": 4.95 },
+                        "10%": { "48": 3.00, "60": 3.40, "72": 3.89, "84": 4.55 },
+                        "15%": { "48": 2.20, "60": 2.75, "72": 3.29, "84": 3.79 },
+                        "20%": { "48": 1.79, "60": 2.29, "72": 2.60, "84": 3.19 },
+                        "25%": { "48": 1.39, "60": 2.09, "72": 2.49, "84": 2.99 }
+                    }
+                },
+                "Yaris_Cross_Special": {
+                    description: "ดอกเบี้ยพิเศษเพื่อการโฆษณาประชาสัมพันธ์ สำหรับยาริส ครอส",
+                    models: ["Yaris_Cross"],
+                    period: "1 มี.ค. - 31 ก.ค. 2568",
+                    deliveryDeadline: "31 ส.ค. 2568",
+                    dealerSubsidy: null,
+                    lowestRate: 1.75,
+                    conditions: "อัตราดอกเบี้ยต่ำสุด 1.75% ที่ดาวน์ 25% ระยะเวลา 48 เดือน",
+                    rates: {
+                        "5%": { "48": 3.69, "60": 3.99, "72": 4.45, "84": 4.89 },
+                        "10%": { "48": 3.29, "60": 3.59, "72": 3.95, "84": 4.55 },
+                        "15%": { "48": 2.49, "60": 2.89, "72": 3.35, "84": 3.75, "96": 4.25 },
+                        "20%": { "48": 1.99, "60": 2.35, "72": 2.55, "84": 3.05, "96": 3.79 },
+                        "25%": { "48": 1.75, "60": 2.19, "72": 2.45, "84": 2.99, "96": 3.69 }
                     }
                 }
             },
@@ -630,7 +726,41 @@
                     interestDiscount: 0.30,
                     benefits: "ส่วนลดดอกเบี้ย 0.50% หรือ ส่วนลดดอกเบี้ย 0.20% + ค่าสนับสนุนการขาย 10,000 บาท"
                 }
-            }
+            },
+
+            // แคมเปญใหม่เดือนกรกฎาคม 2568
+            julyCampaigns: [
+                {
+                    name: "แคมเปญค่าตอบแทนพิเศษสัญญาสบายดี",
+                    description: "ค่าตอบแทนพิเศษ 500-1,000 บาท/สัญญา สำหรับสัญญาสบายดี",
+                    period: "1-31 ก.ค. 2568"
+                },
+                {
+                    name: "แคมเปญประกันภัย Toyota Care",
+                    description: "รางวัลพิเศษ 500-1,000 บาท สำหรับประกันภัยประเภท 1",
+                    period: "1-31 ก.ค. 2568"
+                },
+                {
+                    name: "โปรแกรม RO Scheme",
+                    description: "ส่วนลดดอกเบี้ย 0.50-0.70% สำหรับรุ่นที่ร่วมโปรแกรม",
+                    period: "1-31 ก.ค. 2568"
+                },
+                {
+                    name: "ส่วนลดลูกค้าเก่าโตโยต้า (Loyalty)",
+                    description: "ส่วนลดดอกเบี้ย 0.15% สำหรับลูกค้าเก่าโตโยต้า",
+                    period: "8 ก.พ. 2567- 31 ก.ค. 2568"
+                },
+                {
+                    name: "ส่วนลดรถไฮบริด",
+                    description: "ส่วนลดดอกเบี้ย 0.10% สำหรับรถไฮบริดทุกรุ่น",
+                    period: "ตลอดปี 2568"
+                },
+                {
+                    name: "แคมเปญ TOYOTA FESTIWOW",
+                    description: "ส่วนลดดอกเบี้ย 0.15-1.50% สำหรับผู้ลงทะเบียนในงาน",
+                    period: "4 มิ.ย. - 31ก.ค. 2568"
+                }
+            ]
         };
 
         // ฟังก์ชันหาเปอร์เซ็นต์ดาวน์ขั้นต่ำที่เป็นไปได้และมีอัตราดอกเบี้ย
@@ -831,6 +961,7 @@
             const downPaymentAmount = parseFloat(document.getElementById('downPayment').value);
             const term = parseInt(document.getElementById('loanTerm').value);
             const targetPayment = parseFloat(document.getElementById('monthlyPayment').value);
+            const additionalDiscount = parseFloat(document.getElementById('additionalDiscount').value) || 0;
             
             const resultsDiv = document.getElementById('results');
             
@@ -948,11 +1079,17 @@
                 }
                 
                 const originalRate = interestRate;
+                let customerProgramDiscount = 0;
                 
                 // ใช้ส่วนลดจากโปรแกรมลูกค้า
                 if (selectedCustomerPrograms.length > 0) {
-                    interestRate = applyCustomerDiscount(interestRate, selectedCustomerPrograms);
+                    const discountedRate = applyCustomerDiscount(interestRate, selectedCustomerPrograms);
+                    customerProgramDiscount = interestRate - discountedRate;
+                    interestRate = discountedRate;
                 }
+                
+                // ใช้ส่วนลดเพิ่มเติม
+                interestRate = Math.max(interestRate - additionalDiscount, 0);
                 
                 const totalDiscount = originalRate - interestRate;
                 
@@ -1024,9 +1161,25 @@
                 `;
                 
                 if (totalDiscount > 0) {
+                    if (customerProgramDiscount > 0) {
+                        resultHtml += `
+                            <div class="result-row">
+                                <span class="result-label">ส่วนลดจากโปรแกรมลูกค้า:</span>
+                                <span class="result-value">-${customerProgramDiscount.toFixed(2)}%</span>
+                            </div>
+                        `;
+                    }
+                    if (additionalDiscount > 0) {
+                        resultHtml += `
+                            <div class="result-row">
+                                <span class="result-label">ส่วนลดเพิ่มเติม:</span>
+                                <span class="result-value">-${additionalDiscount.toFixed(2)}%</span>
+                            </div>
+                        `;
+                    }
                     resultHtml += `
                         <div class="result-row">
-                            <span class="result-label">ส่วนลดดอกเบี้ย:</span>
+                            <span class="result-label">ส่วนลดรวม:</span>
                             <span class="result-value">-${totalDiscount.toFixed(2)}%</span>
                         </div>
                         <div class="result-row">
@@ -1114,10 +1267,12 @@
             const promotionsDiv = document.getElementById('promotions-list');
             let promoHtml = '';
             
+            // โปรโมชั่นพิเศษ
             Object.values(ToyotaLeasingSystem.specialPromotions).forEach(promo => {
+                const isNew = promo.period.includes('ก.ค. 2568');
                 promoHtml += `
-                    <div class="promo-card">
-                        <div class="promo-title">${promo.description}</div>
+                    <div class="promo-card ${isNew ? 'new' : ''}">
+                        <div class="promo-title">${promo.description} ${isNew ? '<span class="new-badge">NEW</span>' : ''}</div>
                         <div class="promo-details">
                             <strong>รุ่นที่ร่วม:</strong> ${promo.models.join(', ')}<br>
                             <strong>ระยะเวลา:</strong> ${promo.period}<br>
@@ -1128,6 +1283,7 @@
                 `;
             });
             
+            // โปรแกรมลูกค้าดี
             Object.values(ToyotaLeasingSystem.customerPrograms).forEach(program => {
                 promoHtml += `
                     <div class="promo-card">
@@ -1135,6 +1291,19 @@
                         <div class="promo-details">
                             <strong>ส่วนลดดอกเบี้ย:</strong> ${program.interestDiscount}%<br>
                             <strong>สิทธิพิเศษ:</strong> ${program.benefits}
+                        </div>
+                    </div>
+                `;
+            });
+
+            // แคมเปญใหม่เดือนกรกฎาคม
+            ToyotaLeasingSystem.julyCampaigns.forEach(campaign => {
+                promoHtml += `
+                    <div class="promo-card new">
+                        <div class="promo-title">${campaign.name} <span class="new-badge">NEW</span></div>
+                        <div class="promo-details">
+                            <strong>รายละเอียด:</strong> ${campaign.description}<br>
+                            <strong>ระยะเวลา:</strong> ${campaign.period}
                         </div>
                     </div>
                 `;
@@ -1152,9 +1321,10 @@
                 checkbox.addEventListener('change', function() {
                     if (this.checked) {
                         // ถ้าเป็นโปรโมชั่น ให้ uncheck โปรโมชั่นอื่น
-                        if (['Ativ_Yaris_2566', 'Fortuner_2567', 'Veloz_Special'].includes(this.value)) {
+                        const promotionValues = ['Ativ_Yaris_2566', 'Fortuner_2567', 'Veloz_Special', 'Corolla_Cross_2567', 'Yaris_Cross_Special'];
+                        if (promotionValues.includes(this.value)) {
                             document.querySelectorAll('input[type="checkbox"]').forEach(other => {
-                                if (other !== this && ['Ativ_Yaris_2566', 'Fortuner_2567', 'Veloz_Special'].includes(other.value)) {
+                                if (other !== this && promotionValues.includes(other.value)) {
                                     other.checked = false;
                                 }
                             });
